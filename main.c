@@ -41,8 +41,8 @@ int main(int argc, char** argv) {
 	int *sub_arry = malloc(size * sizeof(int));
 	
 	MPI_Scatter(org_arry, size, MPI_INT,
-			    sub_arry, size, MPI_INT,
-                0 /*root*/, MPI_COMM_WORLD);
+            sub_arry, size, MPI_INT,
+            0, MPI_COMM_WORLD);
 	
 	int *tmp_arry = malloc(size * sizeof(int));
 	mergeSort(sub_arry, tmp_arry, 0, (size-1));
@@ -51,8 +51,8 @@ int main(int argc, char** argv) {
 	if (!rank) sorted = malloc(n * sizeof(int));
 	
 	MPI_Gather(sub_arry, size, MPI_INT,
-			   sorted, size, MPI_INT,
-  			   0 /*root*/, MPI_COMM_WORLD);
+            sorted, size, MPI_INT,
+            0, MPI_COMM_WORLD);
 	
 	if (!rank)
 	{
@@ -81,7 +81,7 @@ void mergeSort(int *arry_a, int *arry_b, int l, int r)
     int m;
     if (l < r /*index left < index right*/)
     {
-        m = (l + r) / 2; // middle
+        m = (l + r) / 2; /*middle*/
         mergeSort(arry_a, arry_b, l, m);
         mergeSort(arry_a, arry_b, (m+1), r);
         merge(arry_a, arry_b, l, m, r);
